@@ -12,27 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Display GitHub user
-        run: echo "The workflow was triggered by $GITHUB_ACTOR"
-
-      - name: Use the custom action
-        id: custom_action
+      - name: Get WIRE_URL
+        id: get_wire_url
         uses: "artanty/shared-secrets@master"
-        with:
-          pat: echo "${{ secrets.TOKEN2024 }}"
 
-      - name: Test
-        uses: actions/github-script@v5
-        with:
-          script: |
-            // Access the Personal Access Token secret
-            const accessToken = ${{ secrets.TOKEN2024 }};
-
-            // Use the accessToken variable in your script
-            console.log("Access Token:", accessToken);
-            
       - name: Log the safe URL
-        run: echo "The safe URL is ${{ steps.custom_action.outputs.safe_url }}"
+        run: echo "The safe URL is ${{ steps.get_wire_url.outputs.safe_url }}"
       
       # - name: Extract part of repository name
       #   id: extract_repo_part
