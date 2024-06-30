@@ -15,14 +15,11 @@ jobs:
       - name: Display GitHub user
         run: echo "The workflow was triggered by $GITHUB_ACTOR"
 
-      - name: Display GitHub token
-        run: echo "The workflow was triggered by $GITHUB_TOKEN"
-
       - name: Use the custom action
         id: custom_action
         uses: "artanty/shared-secrets@master"
         with:
-          pat: ${{ secrets.TOKEN2024 }}
+          pat: echo "${{ secrets.TOKEN2024 }}"
 
       - name: Test
         uses: actions/github-script@v5
