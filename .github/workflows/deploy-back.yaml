@@ -13,12 +13,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Checkout custom action from private repo
-        uses: actions/checkout@v2
-        with:
-          repository: artanty/shared-secrets
-          token: ${{ secrets.PAT }}
-
       - name: Get WIRE_URL
         id: get_wire_url
         uses: "artanty/shared-secrets@master"
