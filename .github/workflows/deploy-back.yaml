@@ -17,8 +17,8 @@ jobs:
         id: get_wire_url
         uses: "artanty/shared-secrets@master"
 
-      - name: Log the safe URL
-        run: echo "The safe URL is ${{ steps.get_wire_url.outputs.safe_url }}"
+      - name: Log the wire URL
+        run: echo "The wire URL is ${{ steps.get_wire_url.outputs.wire_url }}"
       
       # - name: Extract part of repository name
       #   id: extract_repo_part
