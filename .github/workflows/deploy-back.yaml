@@ -10,7 +10,14 @@ jobs:
     # container: pandoc/latex
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Checkout custom action from private repo
+        uses: actions/checkout@v2
+        with:
+          repository: artanty/shared-secrets
+          token: ${{ secrets.TOKEN2024 }}
 
       - name: Get WIRE_URL
         id: get_wire_url
