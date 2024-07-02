@@ -26,7 +26,7 @@ jobs:
           MY_CUSTOM_VAR: ${{ secrets.MY_CUSTOM_VAR }}
 
       - name: Print Custom Variable
-        run: echo "The value of MY_CUSTOM_VAR is ${{ emv.MY_CUSTOM_VAR }}"
+        run: echo "The value of MY_CUSTOM_VAR is ${{ env.MY_CUSTOM_VAR }}"
         env:
           MY_CUSTOM_VAR: ${{ env.MY_CUSTOM_VAR }}
       
