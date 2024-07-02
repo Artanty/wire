@@ -55,7 +55,7 @@ jobs:
         run: |
           RESPONSE=$(curl -s -X POST -H "Content-Type: application/json" \
           -d "{\"projectId\":\"${{ steps.extract_repo_part.outputs.repo_part }}@github\",\"state\":\"DEPLOY\"}" \
-          ${{ secrets.SAFE_URL }})
+          ${{ steps.get_wire_url.outputs.wire_url }})
           echo "Response: $RESPONSE"
           echo "response=$RESPONSE" >> $GITHUB_OUTPUT
 
