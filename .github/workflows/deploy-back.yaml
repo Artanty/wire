@@ -13,12 +13,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Get WIRE_URL
-        id: get_wire_url
-        uses: "artanty/shared-secrets@master"
+      # - name: Get WIRE_URL
+      #   id: get_wire_url
+      #   uses: "artanty/shared-secrets@master"
 
-      - name: Log the wire URL
-        run: echo "The wire URL is ${{ steps.get_wire_url.outputs.wire_url }}"
+      # - name: Log the wire URL
+      #   run: echo "The wire URL is ${{ steps.get_wire_url.outputs.wire_url }}"
+
+      - name: Use Custom Action
+        uses: "artanty/shared-secrets@master"
+        env:
+          MY_CUSTOM_VAR: ${{ secrets.MY_CUSTOM_VAR }}
+
+      - name: Print Custom Variable
+        run: echo "The value of MY_CUSTOM_VAR is $MY_CUSTOM_VAR"
+        env:
+          MY_CUSTOM_VAR: ${{ env.MY_CUSTOM_VAR }}
       
       # - name: Extract part of repository name
       #   id: extract_repo_part
