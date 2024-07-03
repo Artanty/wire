@@ -28,7 +28,7 @@ jobs:
       - name: Fetch secret from another repo
         id: fetch_secret
         run: |
-          response=$(curl -H "Authorization: token ${{ secrets.TOKEN2024 }}" \
+          response=$(curl -H "Authorization: token ${{ secrets.PAT }}" \
                           -H "Accept: application/vnd.github.v3+json" \
                           https://api.github.com/repos/OWNER/OTHER_REPO/actions/secrets/WIRE_URL)
           echo "secret_response=$response" >> $GITHUB_OUTPUT
