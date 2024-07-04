@@ -17,7 +17,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: "artanty/shared-secret"
-          token: ${{ secrets.PAT }}
           
       - name: Get WIRE_URL
         id: get_wire_url 
