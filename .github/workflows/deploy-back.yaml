@@ -16,7 +16,7 @@ jobs:
       - name: Checkout private action repo
         uses: actions/checkout@v2
         with:
-          repository: "artanty/shared-secrets@master"
+          repository: "artanty/shared-secret"
           token: ${{ secrets.PAT }}
           
       - name: Get WIRE_URL
