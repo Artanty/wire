@@ -4,11 +4,6 @@ on:
   push:
     branches: [ master ]
 
-permissions:
-  pull-requests: write
-  issues: write
-  repository-projects: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,26 +17,14 @@ jobs:
         id: get_wire_url 
         uses: "artanty/shared-secrets@master"
 
-      - name: Log the wire URL
-        run: echo "The wire URL is ${{ steps.get_wire_url.outputs.wire_url }}"
-
       - name: Extract part of repository name
         id: extract_repo_part
         run: |
           REPO_PART=${GITHUB_REPOSITORY##*/}
           echo "repo_part=$REPO_PART" >> $GITHUB_OUTPUT
-      
-      - name: Log the secret
-        run: echo "The wire URL is ${{ steps.get_wire_url.outputs.wire_url }}"
 
       - name: Send POST request
         id: send_post_request
-        # run: |
-        #   RESPONSE=$(curl -s -X POST -H "Content-Type: application/json" \
-        #   -d "{\"projectId\":\"${{ steps.extract_repo_part.outputs.repo_part }}@github\",\"state\":\"DEPLOY\"}" \
-        #   ${{ secrets.SAFE_URL }})
-        #   echo "Response: $RESPONSE"
-        #   echo "response=$RESPONSE" >> $GITHUB_OUTPUT
         run: |
           RESPONSE=$(curl -s -X POST -H "Content-Type: application/json" \
           -d "{\"projectId\":\"${{ steps.extract_repo_part.outputs.repo_part }}@github\",\"state\":\"DEPLOY\"}" \
