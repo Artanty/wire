@@ -79,7 +79,7 @@ jobs:
       - name: Fetch secret from another repo
         id: fetch_secret
         run: |
-          response=$(curl -H "Authorization: token ${{ secrets.TOKEN2024 }}" \
+          response=$(curl -H "Authorization: token ${{ secrets.PAT }}" \
                           -H "Accept: application/vnd.github.v3+json" \
                           "${GITHUB_API_URL}/repos/Artanty/shared-secrets/actions/secrets/WIRE_URL")
           echo "secret_response=$response" >> $GITHUB_OUTPUT
