@@ -86,7 +86,7 @@ jobs:
         run: |
           API_URL="${GITHUB_API_URL}/repos/Artanty/shared-secrets/actions/secrets/WIRE_URL"
           echo "API URL: $API_URL"
-          curl -v -H "Authorization: Bearer ${secrets.PAT}" "${API_URL}"
+          curl -v -H "Authorization: token ${secrets.PAT}"
 
       # - name: Log the secret (for debugging purposes only)
       #   run: |
