@@ -14,15 +14,15 @@ jobs:
     # container: pandoc/latex
 
     steps:
-      # - name: Checkout repository
-      #   uses: actions/checkout@v2
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      # - name: Checkout Code
+      #   uses: actions/checkout@v3
 
-      - name: Fetch Secret from Common Repo
-        run: |
-          curl -H "Authorization: token ${{ secrets.PAT }}" \
-          ${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/contents/secrets.env
+      # - name: Fetch Secret from Common Repo
+      #   run: |
+      #     curl -H "Authorization: token ${{ secrets.PAT }}" \
+      #     ${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/contents/secrets.env
 
       # - name: Trigger action(2) in repo(2)
       #   uses: actions/github-script@v6
@@ -76,13 +76,13 @@ jobs:
       #   uses: actions/checkout@v2
       #   with:
       #     repository: "artanty/shared-secret"
-      # - name: Fetch secret from another repo
-      #   id: fetch_secret
-      #   run: |
-      #     response=$(curl -H "Authorization: token ${{ secrets.TOKEN2024 }}" \
-      #                     -H "Accept: application/vnd.github.v3+json" \
-      #                     https://api.github.com/repos/Artanty/shared-secrets/actions/secrets/WIRE_URL)
-      #     echo "secret_response=$response" >> $GITHUB_OUTPUT
+      - name: Fetch secret from another repo
+        id: fetch_secret
+        run: |
+          response=$(curl -H "Authorization: token ${{ secrets.TOKEN2024 }}" \
+                          -H "Accept: application/vnd.github.v3+json" \
+                          "${GITHUB_API_URL}/repos/Artanty/shared-secrets/actions/secrets/WIRE_URL")
+          echo "secret_response=$response" >> $GITHUB_OUTPUT
 
       # - name: Log the secret (for debugging purposes only)
       #   run: |
