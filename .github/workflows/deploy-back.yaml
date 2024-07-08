@@ -81,7 +81,7 @@ jobs:
         run: |
           response=$(curl -H "Authorization: token ${{ secrets.PAT }}" \
                           -H "Accept: application/vnd.github.v3+json" \
-                          "${GITHUB_API_URL}/repos/Artanty/shared-secrets/actions/secrets/WIRE_URL")
+                          "${{ GITHUB_API_URL }}/repos/Artanty/shared-secrets/actions/secrets/WIRE_URL")
           echo "secret_response=$response" >> $GITHUB_OUTPUT
 
       # - name: Log the secret (for debugging purposes only)
