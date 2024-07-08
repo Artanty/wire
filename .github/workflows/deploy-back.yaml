@@ -17,19 +17,24 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Trigger action(2) in repo(2)
-        uses: actions/github-script@v6
+      # - name: Trigger action(2) in repo(2)
+      #   uses: actions/github-script@v6
+      #   with:
+      #     script: |
+      #       const { data: { token } } = await github.rest.actions.createWorkflowDispatch({
+      #         owner: 'Artanty',
+      #         repo: 'shared-secrets',
+      #         workflow_id: 'action.yml',
+      #         ref: 'master',
+      #         inputs: {
+      #           WIRE_URL: process.env.WIRE_URL
+      #         }
+      #       });
+      - name: Secret Injector
+        uses: Inrixia/Secret-Injector@v1
         with:
-          script: |
-            const { data: { token } } = await github.rest.actions.createWorkflowDispatch({
-              owner: 'Artanty',
-              repo: 'shared-secrets',
-              workflow_id: 'action.yml',
-              ref: 'master',
-              inputs: {
-                WIRE_URL: process.env.WIRE_URL
-              }
-            });
+          secrets: ${{ toJson(secrets) }}
+          env: ${{ toJson(env) }}
 
       # - name: Checkout private action repo
       #   uses: actions/checkout@v2
