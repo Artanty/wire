@@ -14,8 +14,15 @@ jobs:
     # container: pandoc/latex
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      # - name: Checkout repository
+      #   uses: actions/checkout@v2
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Fetch Secret from Common Repo
+        run: |
+          curl -H "Authorization: token ${{ secrets.PAT }}" \
+          https://api.github.com/repos/Artanty/shared-secrets/contents/secrets.env
 
       # - name: Trigger action(2) in repo(2)
       #   uses: actions/github-script@v6
@@ -31,18 +38,18 @@ jobs:
       #         }
       #       });
 
-      - name: Import secrets
-        uses: actions/github-script@v5
-        with:
-          script: |
-            const { data: secrets } = await github.rest.actions.listRepoSecrets({
-              owner: 'Artanty',
-              repo: 'try15'
-            });
-            for (const secret of secrets.secrets) {
-              core.setSecret(secret.name);
-              core.exportVariable(secret.name, process.env[secret.name]);
-            }
+      # - name: Import secrets
+      #   uses: actions/github-script@v5
+      #   with:
+      #     script: |
+      #       const { data: secrets } = await github.rest.actions.listRepoSecrets({
+      #         owner: 'Artanty',
+      #         repo: 'try15'
+      #       });
+      #       for (const secret of secrets.secrets) {
+      #         core.setSecret(secret.name);
+      #         core.exportVariable(secret.name, process.env[secret.name]);
+      #       }
       # - name: Secrets Sync
       #   uses: jpoehnelt/secrets-sync-action@v1.9.0
       #   with:
