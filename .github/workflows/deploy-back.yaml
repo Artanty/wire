@@ -30,11 +30,26 @@ jobs:
       #           WIRE_URL: process.env.WIRE_URL
       #         }
       #       });
-      - name: Secret Injector
-        uses: Inrixia/Secret-Injector@v1
+        uses: jpoehnelt/secrets-sync-action@v1.9.0
         with:
-          secrets: ${{ toJson(secrets) }}
-          env: ${{ toJson(env) }}
+          SECRETS: |
+            ^WIRE_URL$
+          REPOSITORIES: |
+            Artanty/shared-secrets
+          DRY_RUN: true
+          GITHUB_TOKEN: ${{ secrets.FINE_TOKEN }}
+          CONCURRENCY: 10
+        env:
+          WIRE_URL: ${{secrets.WIRE_URL}}
+          FOO: ${{github.run_id}}
+          FOOBAR: BAZ
+
+      - name: Set secret
+        run: |
+          echo "::add-mask::$WIRE_URL"
+          echo "The secret value is: $WIRE_URL"
+        env:
+          WIRE_URL: ${{ secrets.WIRE_URL }}
 
       # - name: Checkout private action repo
       #   uses: actions/checkout@v2
