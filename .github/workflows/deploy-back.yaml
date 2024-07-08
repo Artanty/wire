@@ -22,7 +22,7 @@ jobs:
       - name: Fetch Secret from Common Repo
         run: |
           curl -H "Authorization: token ${{ secrets.PAT }}" \
-          https://api.github.com/repos/Artanty/shared-secrets/contents/secrets.env
+          ${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/contents/secrets.env
 
       # - name: Trigger action(2) in repo(2)
       #   uses: actions/github-script@v6
