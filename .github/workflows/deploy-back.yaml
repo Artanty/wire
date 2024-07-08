@@ -84,8 +84,7 @@ jobs:
         #                   "${GITHUB_API_URL}/repos/Artanty/shared-secrets/actions/secrets/WIRE_URL")
         #   echo "secret_response=$response" >> $GITHUB_OUTPUT
         run: |
-          echo "$GITHUB_REF"
-          API_URL="${GITHUB_API_URL}/repos/Artanty/shared-secrets/actions/secrets/WIRE_URL"
+          API_URL=${{GITHUB_API_URL}}/repos/Artanty/shared-secrets/actions/secrets/WIRE_URL
           echo "API URL: $API_URL"
           curl -v -H "Authorization: Bearer ${secrets.PAT}" "${API_URL}"
 
