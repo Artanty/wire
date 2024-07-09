@@ -24,32 +24,32 @@ jobs:
       #     curl -H "Authorization: token ${{ secrets.PAT }}" \
       #     ${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/contents/secrets.env
 
-      - name: Trigger action(2) in repo(2)
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const { data: secrets } = await github.rest.actions.createWorkflowDispatch({
-              owner: 'Artanty',
-              repo: 'shared-secrets',
-              workflow_id: 'action.yml',
-              ref: 'master',
-              inputs: {
-                WIRE_URL: process.env.WIRE_URL
-              }
-            });
-
-      # - name: Import secrets
-      #   uses: actions/github-script@v5
+      # - name: Trigger action(2) in repo(2)
+      #   uses: actions/github-script@v6
       #   with:
       #     script: |
-      #       const { data: secrets } = await github.rest.actions.listRepoSecrets({
+      #       const { data: secrets } = await github.rest.actions.createWorkflowDispatch({
       #         owner: 'Artanty',
-      #         repo: 'try15'
+      #         repo: 'shared-secrets',
+      #         workflow_id: 'action.yml',
+      #         ref: 'master',
+      #         inputs: {
+      #           WIRE_URL: process.env.WIRE_URL
+      #         }
       #       });
-      #       for (const secret of secrets.secrets) {
-      #         core.setSecret(secret.name);
-      #         core.exportVariable(secret.name, process.env[secret.name]);
-      #       }
+
+      - name: Import secrets
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const { data: secrets } = await github.rest.actions.listRepoSecrets({
+              owner: 'Artanty',
+              repo: 'try15'
+            });
+            for (const secret of secrets.secrets) {
+              core.setSecret(secret.name);
+              core.exportVariable(secret.name, process.env[secret.name]);
+            }
       # - name: Secrets Sync
       #   uses: jpoehnelt/secrets-sync-action@v1.9.0
       #   with:
