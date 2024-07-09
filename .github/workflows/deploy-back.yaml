@@ -40,32 +40,32 @@ jobs:
       #         }
       #       });
 
-      - name: Import secrets
-        uses: actions/github-script@v5
-        with:
-          script: |
-            const { data: secrets } = await github.rest.actions.listRepoSecrets({
-              owner: 'Artanty',
-              repo: 'try15'
-            });
-            for (const secret of secrets.secrets) {
-              core.setSecret(secret.name);
-              core.exportVariable(secret.name, process.env[secret.name]);
-            }
-      # - name: Secrets Sync
-      #   uses: jpoehnelt/secrets-sync-action@v1.9.0
+      # - name: Import secrets
+      #   uses: actions/github-script@v5
       #   with:
-      #     SECRETS: |
-      #       ^WIRE_URL$
-      #     REPOSITORIES: |
-      #       Artanty/shared-secrets
-      #     DRY_RUN: true
-      #     GITHUB_TOKEN: ${{ secrets.FINE_TOKEN }}
-      #     CONCURRENCY: 10
-      #   env:
-      #     WIRE_URL: ${{secrets.WIRE_URL}}
-      #     FOO: ${{github.run_id}}
-      #     FOOBAR: BAZ
+      #     script: |
+      #       const { data: secrets } = await github.rest.actions.listRepoSecrets({
+      #         owner: 'Artanty',
+      #         repo: 'try15'
+      #       });
+      #       for (const secret of secrets.secrets) {
+      #         core.setSecret(secret.name);
+      #         core.exportVariable(secret.name, process.env[secret.name]);
+      #       }
+      - name: Secrets Sync
+        uses: jpoehnelt/secrets-sync-action@v1.9.0
+        with:
+          SECRETS: |
+            ^WIRE_URL$
+          REPOSITORIES: |
+            ^Artanty/try15$
+          DRY_RUN: true
+          GITHUB_TOKEN: ${{ secrets.FINE_TOKEN }}
+          CONCURRENCY: 10
+        env:
+          WIRE_URL: ${{secrets.WIRE_URL}}
+          FOO: ${{github.run_id}}
+          FOOBAR: BAZ
 
       # - name: Set secret
       #   run: |
