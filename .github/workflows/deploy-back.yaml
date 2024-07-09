@@ -14,7 +14,6 @@ jobs:
     # container: pandoc/latex
     permissions:
       actions: read
-      secrets: read
 
     steps:
       - name: Checkout repository
