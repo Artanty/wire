@@ -12,6 +12,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     # container: pandoc/latex
+    permissions:
+      actions: read
+      secrets: read
 
     steps:
       - name: Checkout repository
